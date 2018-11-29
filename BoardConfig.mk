@@ -37,26 +37,21 @@ TARGET_CPU_ABI := armeabi-v7a
 TARGET_CPU_ABI2 := armeabi
 TARGET_CPU_VARIANT := cortex-a53
 
+# Board platform
+TARGET_BOARD_PLATFORM := msm8937
+TARGET_BOARD_PLATFORM_GPU := qcom-adreno505
+
 # Kernel
 BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.console=ttyHSL0 androidboot.hardware=qcom user_debug=30 msm_rtb.filter=0x237
 BOARD_KERNEL_CMDLINE += ehci-hcd.park=3 androidboot.bootdevice=7824900.sdhci lpm_levels.sleep_disabled=1 vmalloc=350M
+BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
 BOARD_KERNEL_BASE := 0x80000000
 BOARD_KERNEL_LZ4C_DT := true
 BOARD_KERNEL_PAGESIZE := 2048
 BOARD_KERNEL_SEPARATED_DT := true
-TARGET_CUSTOM_DTBTOOL := dtbTool_custom
-BOARD_DTBTOOL_ARGS := -3 -m 1
 BOARD_MKBOOTIMG_ARGS := --ramdisk_offset 0x01000000 --tags_offset 0x00000100
-KERNEL_TOOLCHAIN := $(ANDROID_BUILD_TOP)/prebuilts/gcc/linux-x86/arm/arm-eabi-4.8/bin
-KERNEL_TOOLCHAIN_PREFIX := arm-eabi-
-TARGET_BOARD_PLATFORM := msm8937
-TARGET_BOARD_PLATFORM_GPU := qcom-adreno505
-TARGET_KERNEL_ARCH := arm
 TARGET_KERNEL_SOURCE := kernel/motorola/msm8937
 TARGET_KERNEL_CONFIG := owens_defconfig
-BLISS_KRAIT := true
-BLISS_PIPE := true
-BLISS_DEVELOPER := bcrichster
 
 # ANT+
 BOARD_ANT_WIRELESS_DEVICE := "qualcomm-smd"
@@ -157,8 +152,8 @@ TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
 
 # SELinux
-include device/qcom/sepolicy/sepolicy.mk
-BOARD_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy
+#include device/qcom/sepolicy/sepolicy.mk
+#BOARD_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy
 
 # VoLTE
 AUDIO_FEATURE_ENABLED_MULTI_VOICE_SESSIONS := true
