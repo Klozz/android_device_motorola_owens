@@ -14,9 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-include vendor/motorola/msm8937-common/BoardConfigVendor.mk
--include vendor/motorola/owens/BoardConfigVendor.mk
--include vendor/motorola/qcom318-32/BoardConfigVendor.mk
+include vendor/motorola/owens/BoardConfigVendor.mk
 
 DEVICE_PATH := device/motorola/owens
 
@@ -42,7 +40,7 @@ TARGET_CPU_VARIANT := cortex-a53
 
 # Board platform
 TARGET_BOARD_PLATFORM := msm8937
-TARGET_BOARD_PLATFORM_GPU := qcom-adreno505
+TARGET_BOARD_PLATFORM_GPU := qcom-adreno308
 
 # Kernel
 BOARD_KERNEL_CMDLINE := console=ttyHSL0,115200,n8 androidboot.console=ttyHSL0 androidboot.hardware=qcom user_debug=30 msm_rtb.filter=0x237

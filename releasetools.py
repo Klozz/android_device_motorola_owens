@@ -1,4 +1,5 @@
-# Copyright (C) 2017 The LineageOS Project
+# Copyright (C) 2016 The CyanogenMod Project
+#               2017 The LineageOS Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,5 +20,31 @@ def FullOTA_InstallEnd(info):
   info.script.Mount("/system")
   info.script.AppendExtra('delete("/system/etc/libnfc-nxp.conf");')
   info.script.RenameFile("/system/etc/libnfc-nxp_ds.conf","/system/etc/libnfc-nxp.conf")
+  info.script.Unmount("/system")
+  info.script.AppendExtra('endif;')
+
+def IncrementalOTA_VerifyBegin(info):
+  # Workaround for apn list changes
+  RestoreApnList(info)
+
+def IncrementalOTA_InstallEnd(info):
+  ReplaceApnList(info)
+
+def FullOTA_InstallEnd(info):
+  ReplaceApnList(info)
+
+def ReplaceApnList(info):
+  info.script.AppendExtra('if getprop("ro.boot.radio") == "US" then')
+  info.script.Mount("/system")
+  info.script.AppendExtra('run_program("/sbin/sh", "-c", "mv /system/etc/apns-conf.xml /system/etc/apns-conf.xml.bak");')
+  info.script.AppendExtra('run_program("/sbin/sh", "-c", "mv /system/etc/stockapn/apns-conf.xml /system/etc/apns-conf.xml");')
+  info.script.Unmount("/system")
+  info.script.AppendExtra('endif;')
+
+def RestoreApnList(info):
+  info.script.AppendExtra('if getprop("ro.boot.radio") == "US" then')
+  info.script.Mount("/system")
+  info.script.AppendExtra('delete("/system/etc/apns-conf.xml");')
+  info.script.AppendExtra('run_program("/sbin/sh", "-c", "mv /system/etc/apns-conf.xml.bak /system/etc/apns-conf.xml");')
   info.script.Unmount("/system")
   info.script.AppendExtra('endif;')
